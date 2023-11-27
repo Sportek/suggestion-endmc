@@ -3,6 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ModeToggle } from '@/components/mode-toggle'
+import { cn } from '@/lib/utils'
+import { createContext, useContext } from 'react'
+import dbService, { DatabaseService } from '@/MongoDB'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,9 +19,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  dbService.run();
+  const db = dbService;
+  
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(inter.className)}>
         <ThemeProvider>
           <ModeToggle/>
           {children}
