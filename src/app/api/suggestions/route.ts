@@ -1,4 +1,6 @@
-export async function GET(request: Request) {
+import { SuggestionsData } from "@/app/database/SuggestionsData";
 
-    return Response.json("Ok");
+export async function GET(request: Request) {
+    const data = await new SuggestionsData().getAllSuggestions();
+    return Response.json(data);
 }

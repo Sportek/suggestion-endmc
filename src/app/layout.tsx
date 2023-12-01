@@ -4,8 +4,8 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ModeToggle } from '@/components/mode-toggle'
 import { cn } from '@/lib/utils'
-import { createContext, useContext } from 'react'
-import dbService, { DatabaseService } from '@/MongoDB'
+import { HeadBar } from '@/components/head-bar'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,18 +19,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
-  dbService.run();
-  const db = dbService;
   
   return (
+    <ClerkProvider>
     <html lang="en">
-      <body className={cn(inter.className)}>
-        <ThemeProvider>
-          <ModeToggle/>
-          {children}
-        </ThemeProvider>
+      <body className={cn(inter.className, "justify-center flex")}>
+        <div className='min-w-[700px] w-[50%]'>
+          <ThemeProvider>
+            <HeadBar/>
+            {children}
+          </ThemeProvider>
+        </div>
       </body>
     </html>
+    </ClerkProvider>
   )
 }
