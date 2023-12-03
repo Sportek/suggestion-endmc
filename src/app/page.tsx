@@ -3,12 +3,13 @@ import { SuggestionType } from "./database/SuggestionsData";
 import { useEffect, useState } from "react";
 import { ContentPage } from "@/components/content-page";
 
+import io from "socket.io-client";
+
 export default function Home() {
-  const [suggestions, setSuggestions] = useState<SuggestionType[] | undefined>(
-    undefined
-  );
+  const [suggestions, setSuggestions] = useState<SuggestionType[]>([]);
 
   useEffect(() => {
+    // const socket = io();
     const fetchData = async () => {
       try {
         const response = await fetch("/api/suggestions");
@@ -23,6 +24,15 @@ export default function Home() {
     };
 
     fetchData();
+
+    // socket.on("newSuggestion", (suggestion) => {
+    //   setSuggestions((prevSuggestions) => [...prevSuggestions, suggestion]);
+    // });
+
+    // // Clean up the socket connection on unmount
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   return (

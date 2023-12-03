@@ -23,7 +23,7 @@ export class DatabaseService {
 
         await this.client.connect();
         this.db = this.client.db(process.env.DB_DB);
-
+        this.isInitialized = true;
         console.log("Successfully connected to MongoDB.");
       } catch (err) {
         console.log(err);
@@ -34,7 +34,6 @@ export class DatabaseService {
   public getDatabase() {
     return this.db;
   }
-
 }
 
 declare global {
@@ -43,4 +42,4 @@ declare global {
 
 export const db = globalThis.database || new DatabaseService();
 
-if(process.env.NODE_ENV !== "production") globalThis.database = db;
+if (process.env.NODE_ENV !== "production") globalThis.database = db;

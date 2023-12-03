@@ -1,4 +1,3 @@
-import { db } from "@/app/database/Database";
 import { UsersData } from "@/app/database/UsersData";
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 
@@ -6,6 +5,7 @@ export const initialProfile = async () => {
   const data = new UsersData();
 
   const user = await currentUser();
+
   if (!user) {
     return redirectToSignIn();
   }
