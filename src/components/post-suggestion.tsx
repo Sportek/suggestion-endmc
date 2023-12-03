@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import qs from "query-string";
+import { SuggestionType } from "@/app/database/SuggestionsData";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -28,7 +29,11 @@ const formSchema = z.object({
   }),
 });
 
-export function PostSuggestion() {
+export function PostSuggestion({
+  callback,
+}: {
+  callback: (suggestion: SuggestionType) => void;
+}) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,12 +51,13 @@ export function PostSuggestion() {
       const url = qs.stringifyUrl({
         url: "/api/suggestions",
       });
-      await axios.post(url, null, {
+      const suggestion = await axios.post(url, null, {
         params: {
           title: values.title,
           suggestion: values.suggestion,
         },
       });
+      callback(suggestion.data);
       form.reset();
     } catch (error) {
       console.error("Error submitting form:", error);

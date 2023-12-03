@@ -14,8 +14,10 @@ export interface AuthorData {
 
 export function ContentPage({
   suggestions,
+  callback,
 }: {
   suggestions: SuggestionType[] | undefined;
+  callback: (suggestion: SuggestionType) => void;
 }) {
   const [authors, setAuthors] = useState<Record<string, AuthorData>>({});
 
@@ -43,7 +45,7 @@ export function ContentPage({
   return (
     <main>
       <div className="flex flex-col gap-2 p-2 bg-zinc-700">
-        <PostSuggestion />
+        <PostSuggestion callback={callback} />
         {suggestions?.map((item, index) => {
           const author = authors[item.authorId];
           if (!author) return null;
