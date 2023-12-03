@@ -1,4 +1,3 @@
-import { UsersData } from "@/app/database/UsersData";
 import { SuggestionType } from "@/app/database/SuggestionsData";
 import { PostSuggestion } from "./post-suggestion";
 import { Profile } from "./profile";
@@ -8,7 +7,6 @@ import { useEffect, useState } from "react";
 export interface AuthorData {
   name: string;
   imageUrl: string;
-  // Ajoutez d'autres propriétés nécessaires
 }
 
 export function ContentPage({

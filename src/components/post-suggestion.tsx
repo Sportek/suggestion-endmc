@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import qs from "query-string"
+import qs from "query-string";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -34,7 +34,7 @@ export function PostSuggestion() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      suggestion: ""
+      suggestion: "",
     },
   });
 
@@ -42,18 +42,28 @@ export function PostSuggestion() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const url = qs.stringifyUrl({
-                url: "/api/suggestions" })
-    await axios.post(url, null, {params: {
-      title: values.title,
-      suggestion: values.suggestion
-    }});
-    console.log("Executed");
+    try {
+      const url = qs.stringifyUrl({
+        url: "/api/suggestions",
+      });
+      await axios.post(url, null, {
+        params: {
+          title: values.title,
+          suggestion: values.suggestion,
+        },
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 border p-2 bg-slate-100">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 border p-2 bg-slate-100"
+      >
         <FormField
           control={form.control}
           name="title"
@@ -80,16 +90,15 @@ export function PostSuggestion() {
               <FormControl>
                 <Textarea placeholder="Fantastic suggestion" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your suggestion.
-              </FormDescription>
+              <FormDescription>This is your suggestion.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-
-        <Button variant="secondary" type="submit">Submit</Button>
+        <Button variant="secondary" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );

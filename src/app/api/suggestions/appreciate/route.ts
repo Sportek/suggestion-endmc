@@ -3,25 +3,26 @@ import { currentProfile } from "@/lib/current-profile";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-    const body = await request.json()
-    const appreciate = body.appreciate;
-    const suggestionId = body.suggestionId;
+  const body = await request.json();
+  const appreciate = body.appreciate;
+  const suggestionId = body.suggestionId;
 
+  const profile = await currentProfile();
 
-    console.log(appreciate);
+  if (!profile) return new NextResponse("Unauthorized", { status: 401 });
 
-    console.log(suggestionId);
+  if ((appreciate !== "like" && appreciate !== "dislike") || !suggestionId)
+    return new NextResponse("Bad request", { status: 400 });
 
+  const suggestionData = new SuggestionsData();
 
-    const profile = await currentProfile();
-    
-    if(!profile) return new NextResponse("Unauthorized", {status: 401});
+  await suggestionData.appreciateSuggestion(
+    profile.userId,
+    suggestionId,
+    appreciate
+  );
 
-    if((appreciate !== "like" && appreciate !== "dislike") || !suggestionId) return new NextResponse("Bad request", {status: 400});
+  const suggestion = await suggestionData.getSuggestionById(suggestionId);
 
-    const suggestionData = new SuggestionsData();
-
-    await suggestionData.appreciateSuggestion(profile.userId, suggestionId, appreciate);
-
-    return NextResponse.json(appreciate);
+  return NextResponse.json(suggestion);
 }
