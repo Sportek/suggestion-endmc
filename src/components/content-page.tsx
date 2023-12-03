@@ -51,6 +51,7 @@ export function ContentPage({
           if (!author) return null;
 
           // Ouin pas terrible... je regrette un peu mon choix d'utiliser mongodb sans orm clean :(
+          // @ts-ignore
           const { _id, ...newSuggestion } = item;
           return (
             <Suggestion suggestion={newSuggestion} key={index}>
