@@ -62,7 +62,7 @@ export function PostSuggestion() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 border p-2 bg-slate-100"
+        className="space-y-8 border p-2 bg-yellow-50 rounded-sm"
       >
         <FormField
           control={form.control}
@@ -71,7 +71,7 @@ export function PostSuggestion() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Fantastic suggestion" {...field} />
+                <Input placeholder="Fantastic title suggestion" {...field} />
               </FormControl>
               <FormDescription>
                 This is the title of your suggestion.

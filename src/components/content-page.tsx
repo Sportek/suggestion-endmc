@@ -39,7 +39,7 @@ export function ContentPage({
 
   return (
     <main>
-      <div>
+      <div className="flex flex-col gap-2 p-2 bg-zinc-900">
         <PostSuggestion />
         {suggestions?.map((item, index) => {
           const author = authors[item.authorId];

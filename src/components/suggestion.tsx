@@ -46,13 +46,18 @@ export function Suggestion({ children, suggestion }: SuggestionProps) {
   };
 
   return (
-    <div className="flex flex-row items-center gap-2 p-2 border bg-slate-100 relative">
-      {children}
-      <Separator orientation="vertical" />
+    <div className="flex flex-row items-center p-2 rounded-sm bg-yellow-50 relative">
+      <div className="w-[150px]">{children}</div>
+      {/* <Separator orientation="vertical" /> */}
       <div className="flex flex-col gap-2 w-full">
-        <div className="flex p-2 flex-col">
+        <div className="flex p-2 flex-col gap-2">
           <div className="font-medium">{suggestion.title}</div>
-          <div>{suggestion.suggestion}</div>
+          <div className="flex flex-col gap-2">
+            <div>Suggestion</div>
+            <div className="p-2 bg-yellow-100 rounded-sm">
+              {suggestion.suggestion}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-row gap-2 justify-end">
@@ -60,13 +65,43 @@ export function Suggestion({ children, suggestion }: SuggestionProps) {
             variant="secondary"
             onClick={async () => await likeFunction()}
           >
-            {likes} 👍
+            <div className="flex flex-row justify-center align-middle gap-2">
+              <div>{likes}</div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 48 48"
+              >
+                <path
+                  fill="#F44336"
+                  d="M34 9c-4.2 0-7.9 2.1-10 5.4C21.9 11.1 18.2 9 14 9C7.4 9 2 14.4 2 21c0 11.9 22 24 22 24s22-12 22-24c0-6.6-5.4-12-12-12z"
+                />
+              </svg>
+            </div>
           </Button>
           <Button
             variant="secondary"
             onClick={async () => await dislikeFunction()}
           >
-            {dislikes} 👎
+            <div className="flex flex-row justify-center align-middle gap-2">
+              <div>{dislikes}</div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 48 48"
+              >
+                <path
+                  fill="#F44336"
+                  d="M34 9c-4.2 0-7.9 2.1-10 5.4C21.9 11.1 18.2 9 14 9C7.4 9 2 14.4 2 21c0 11.9 22 24 22 24s22-12 22-24c0-6.6-5.4-12-12-12z"
+                />
+                <path
+                  fill="#37474F"
+                  d="M3.563 6.396L6.39 3.568l37.966 37.966l-2.828 2.828z"
+                />
+              </svg>
+            </div>
           </Button>
         </div>
       </div>
