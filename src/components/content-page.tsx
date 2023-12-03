@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 export interface AuthorData {
   name: string;
   imageUrl: string;
+  title: "Admin" | "Membre";
+  email: string;
+  userId: string;
 }
 
 export function ContentPage({
@@ -39,7 +42,7 @@ export function ContentPage({
 
   return (
     <main>
-      <div className="flex flex-col gap-2 p-2 bg-zinc-900">
+      <div className="flex flex-col gap-2 p-2 bg-zinc-700">
         <PostSuggestion />
         {suggestions?.map((item, index) => {
           const author = authors[item.authorId];
@@ -49,11 +52,7 @@ export function ContentPage({
           const { _id, ...newSuggestion } = item;
           return (
             <Suggestion suggestion={newSuggestion} key={index}>
-              <Profile
-                name={author.name}
-                title="OP"
-                profileUrl={author.imageUrl}
-              />
+              <Profile account={author} />
             </Suggestion>
           );
         })}

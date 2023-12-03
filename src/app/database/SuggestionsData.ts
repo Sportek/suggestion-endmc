@@ -83,6 +83,6 @@ export class SuggestionsData {
     }
 
     // update data
-    this.collection?.updateOne({ suggestionId }, { $set: suggestion });
+    await this.collection?.updateOne({ suggestionId }, { $set: suggestion });
   }
 }

@@ -26,7 +26,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={cn(inter.className, "justify-center flex bg-zinc-950")}
+          className={cn(inter.className, "justify-center flex bg-zinc-800")}
         >
           <div className="min-w-[700px] w-[50%]">
             <ThemeProvider>
