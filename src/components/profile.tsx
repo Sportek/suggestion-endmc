@@ -18,7 +18,7 @@ export function Profile({ name, title, profileUrl}: ProfileProps) {
             </Avatar>
             <div className="flex flex-col items-center justify-center">
                 <Badge variant="secondary">{title}</Badge>
-                <div>{name}</div>
+                <div className="text-center">{name}</div>
             </div>
         </div>
     )

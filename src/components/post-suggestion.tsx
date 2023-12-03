@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import axios from "axios";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import qs from "query-string"
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -36,10 +39,16 @@ export function PostSuggestion() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const url = qs.stringifyUrl({
+                url: "/api/suggestions" })
+    await axios.post(url, null, {params: {
+      title: values.title,
+      suggestion: values.suggestion
+    }});
+    console.log("Executed");
   }
 
   return (

@@ -34,6 +34,7 @@ export class DatabaseService {
   public getDatabase() {
     return this.db;
   }
+
 }
 
 declare global {
