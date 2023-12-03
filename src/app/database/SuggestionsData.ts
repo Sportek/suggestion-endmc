@@ -10,6 +10,7 @@ export type SuggestionType = {
   suggestion: string;
   likes: { userId: string }[];
   dislikes: { userId: string }[];
+  createAt: number;
 };
 
 export class SuggestionsData {
@@ -23,9 +24,10 @@ export class SuggestionsData {
   }
 
   public async getAllSuggestions() {
-    return (await this.collection?.find({}).toArray()) as
-      | SuggestionType[]
-      | undefined;
+    return (await this.collection
+      ?.find({})
+      .sort({ createAt: -1 })
+      .toArray()) as SuggestionType[] | undefined;
   }
 
   public async getSuggestionsByAuthorID(author_id: string) {

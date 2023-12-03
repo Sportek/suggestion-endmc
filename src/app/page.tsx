@@ -10,6 +10,8 @@ export default function Home() {
     setSuggestions((oldSuggestions) => [suggestion, ...oldSuggestions]);
   };
 
+  const POLLING_INTERVAL = 5000;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,8 +25,21 @@ export default function Home() {
         );
       }
     };
-
     fetchData();
+
+    const pollData = async () => {
+      await fetchData(); // Récupérer les données initiales
+
+      // Lancer le polling à intervalles réguliers
+      const intervalId = setInterval(async () => {
+        await fetchData();
+      }, POLLING_INTERVAL);
+
+      // Nettoyer l'intervalle lorsque le composant est démonté
+      return () => clearInterval(intervalId);
+    };
+
+    pollData();
   }, []);
 
   return (

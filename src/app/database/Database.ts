@@ -24,7 +24,6 @@ export class DatabaseService {
         await this.client.connect();
         this.db = this.client.db(process.env.DB_DB);
         this.isInitialized = true;
-        console.log("Successfully connected to MongoDB.");
       } catch (err) {
         console.log(err);
       }
